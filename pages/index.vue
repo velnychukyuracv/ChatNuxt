@@ -54,7 +54,7 @@
       name: '',
       nameRules: [
         v => !!v || 'Name is required',
-        v => (v && v.length <= 10) || 'Name must be less than 10 characters',
+        v => (v && v.length <= 50) || 'Name must be less than 10 characters',
       ],
       chat: '',
       chatRules: [
@@ -71,8 +71,15 @@
             chatNumber: this.chat
           };
 
-          this.setUser(user);
-          this.$router.push('/chat');
+          this.$socket.emit('userJoined', user, data => {
+            if (typeof data === 'string') {
+              console.log('error')
+            } else {
+              user.id = data.userId;
+              this.setUser(user);
+              this.$router.push('/chat');
+            }
+          })
         }
       }
     }

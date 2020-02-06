@@ -1,5 +1,17 @@
 <template>
-  <h1>Chat page {{user.name}}</h1>
+  <div class="Chat">
+    <div class="Chat-dialog">
+      <message v-for="message in messages"
+               :key="message.id"
+               :name="message.name"
+               :text="message.text"
+               owner>
+      </message>
+    </div>
+    <div class="Chat-input">
+      <chat-input />
+    </div>
+  </div>
 </template>
 
 <script>
@@ -7,12 +19,44 @@
 
   export default {
     name: 'Chat',
+    components: {
+      Message:   () => import('@/components/message'),
+      ChatInput: () => import('@/components/ChatInput')
+    },
     middleware: ['chat'],
     head() {
       return {
         title: `Chat #${this.user.chatNumber}`
       }
     },
-    computed: mapGetters(['user'])
+    computed: mapGetters(['user', 'messages'])
   }
 </script>
+
+<style lang="scss" scoped>
+  .Chat {
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+
+    &-dialog {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 80px;
+      padding: 1rem;
+      overflow-y: auto;
+    }
+
+    &-input {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1rem;
+      height: 80px;
+      background-color: white;
+    }
+  }
+</style>
