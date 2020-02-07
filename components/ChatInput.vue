@@ -1,8 +1,8 @@
 <template>
   <v-flex cols="12">
     <v-text-field
-      label="Enter message"
       outlined
+      label="Enter message"
       v-model="text"
       @keydown.enter="send"
     />
@@ -11,7 +11,7 @@
 
 <script>
   export default {
-    name: "ChatInput",
+    name: 'ChatInput',
     data() {
       return {
         text: null
@@ -23,9 +23,7 @@
           text: this.text,
           id: this.$store.state.user.id
         }, data => {
-          if (typeof data === 'string') {
-            console.log('error')
-          } else {
+          if (typeof data !== 'string') {
             this.text = ''
           }
         })
@@ -33,7 +31,3 @@
     }
   }
 </script>
-
-<style scoped>
-
-</style>

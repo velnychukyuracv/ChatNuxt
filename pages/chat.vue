@@ -20,7 +20,7 @@
   export default {
     name: 'Chat',
     components: {
-      Message:   () => import('@/components/message'),
+      Message:   () => import('@/components/Message'),
       ChatInput: () => import('@/components/ChatInput')
     },
     middleware: ['chat'],

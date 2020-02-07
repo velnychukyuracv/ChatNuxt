@@ -1,18 +1,16 @@
 <template>
-  <v-app app dark>
-    <v-navigation-drawer app v-model="drawer" mobile-break-point="650px">
+  <v-app app>
+    <v-navigation-drawer app
+                         mobile-break-point="650px"
+                         v-model="drawer">
       <v-list subheader>
-        <v-subheader>Recent chat</v-subheader>
+        <v-subheader>Chat users</v-subheader>
 
         <v-list-item
           v-for="u in users"
           :key="u.id"
           @click.prevent
         >
-         <!-- <v-list-item-avatar>
-            <v-img :src="user.avatar"></v-img>
-          </v-list-item-avatar>-->
-
           <v-list-item-content>
             <v-list-item-title>{{u.name}}</v-list-item-title>
           </v-list-item-content>

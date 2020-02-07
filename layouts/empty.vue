@@ -1,5 +1,5 @@
 <template>
-  <v-app app dark>
+  <v-app app>
     <v-content column justify-center align-center>
       <v-container fluid>
         <nuxt/>
