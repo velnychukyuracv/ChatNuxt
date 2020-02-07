@@ -1,11 +1,11 @@
 <template>
   <div class="Chat">
-    <div class="Chat-dialog">
+    <div class="Chat-dialog" ref="block">
       <message v-for="message in messages"
                :key="message.id"
                :name="message.name"
                :text="message.text"
-               owner>
+               :owner="message.id === user.id">
       </message>
     </div>
     <div class="Chat-input">
@@ -29,7 +29,14 @@
         title: `Chat #${this.user.chatNumber}`
       }
     },
-    computed: mapGetters(['user', 'messages'])
+    computed: mapGetters(['user', 'messages']),
+    watch: {
+      messages() {
+        setTimeout(() => {
+          this.$refs.block.scrollTop = this.$refs.block.scrollHeight;
+        })
+      }
+    }
   }
 </script>
 

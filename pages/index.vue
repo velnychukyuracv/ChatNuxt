@@ -2,6 +2,17 @@
   <v-layout column justify-center align-center>
     <v-flex xs12 sm8>
       <v-card min-width="400">
+        <v-snackbar
+          bottom
+          color="orange darken-2"
+          :timeout="800000"
+          v-model="snackbar">
+          {{ message }}
+          <v-btn icon class="button" @click="snackbar = false">
+            <v-icon color="white" flat >mdi-close</v-icon>
+          </v-btn>
+        </v-snackbar>
+
         <v-card-title class="text-center">
           <h2>Nuxt chat</h2>
         </v-card-title>
@@ -50,6 +61,8 @@
       }
     },
     data: () => ({
+      snackbar: false,
+      message: '',
       valid: true,
       name: '',
       nameRules: [
@@ -82,6 +95,24 @@
           })
         }
       }
+    },
+    mounted() {
+      const { message } = this.$route.query;
+
+      if (message === 'noUser') {
+        this.message = 'Please enter data';
+      } else if (message === 'leftChat') {
+        this.message = 'You left chat';
+      }
+
+      this.snackbar = !!this.message;
+
     }
   }
 </script>
+<style lang="scss" scoped>
+  .button {
+    background-color: inherit;
+    border: none;
+  }
+</style>

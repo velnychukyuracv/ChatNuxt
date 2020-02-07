@@ -5,7 +5,7 @@
       <hr>
     </div>
     <div v-else class="Message-wrapper">
-      <div :class="['Message--wrapper-msg', '{ owner }']">
+      <div :class="['Message--wrapper-msg', 'owner']">
         <small>
           <strong>{{name}}</strong>
         </small>

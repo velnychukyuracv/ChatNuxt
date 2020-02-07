@@ -5,20 +5,20 @@
         <v-subheader>Recent chat</v-subheader>
 
         <v-list-item
-          v-for="user in users"
-          :key="user.id"
+          v-for="u in users"
+          :key="u.id"
           @click.prevent
         >
-          <v-list-item-avatar>
+         <!-- <v-list-item-avatar>
             <v-img :src="user.avatar"></v-img>
-          </v-list-item-avatar>
+          </v-list-item-avatar>-->
 
           <v-list-item-content>
-            <v-list-item-title>{{user.name}}</v-list-item-title>
+            <v-list-item-title>{{u.name}}</v-list-item-title>
           </v-list-item-content>
 
           <v-list-item-icon>
-            <v-icon :color="user.id == 2 ? 'deep-purple accent-4' : 'grey'">mdi-chat</v-icon>
+            <v-icon :color="u.id === user.id ? 'primary' : 'grey'">mdi-chat</v-icon>
           </v-list-item-icon>
         </v-list-item>
       </v-list>
@@ -46,21 +46,19 @@
   export default {
     data() {
       return {
-        drawer: true,
-        users: [
-          {id: '1', name: 'User First', avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg'},
-          {id: '2', name: 'User Second', avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg'}
-        ]
+        drawer: true
       }
     },
     computed: {
-      ...mapGetters(['user'])
+      ...mapGetters(['user', 'users'])
     },
     methods: {
       ...mapMutations(['clearData']),
       exit() {
-        this.$router.push('/?message=leftChat');
-        this.clearData()
+        this.$socket.emit('userLeft', this.user.id, () => {
+          this.$router.push('/?message=leftChat');
+          this.clearData();
+        });
       }
     }
   }
