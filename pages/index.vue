@@ -8,7 +8,10 @@
           :timeout="800000"
           v-model="snackbar">
           {{ message }}
-          <v-btn icon class="button" @click="snackbar = false">
+          <v-btn
+            icon
+            class="button"
+            @click="snackbar = false">
             <v-icon color="white" flat >mdi-close</v-icon>
           </v-btn>
         </v-snackbar>
@@ -17,7 +20,10 @@
           <h2>Nuxt chat</h2>
         </v-card-title>
         <v-card-text>
-          <v-form ref="form" lazy-validation v-model="valid">
+          <v-form
+            ref="form"
+            lazy-validation
+            v-model="valid">
             <v-text-field
               label="Name"
               required
@@ -55,25 +61,22 @@
     head: {
       title: 'Welcome to the chat'
     },
-    sockets: {
-      connect: function () {
-        console.log('socket connected');
+    data() {
+      return {
+        snackbar: false,
+        message: '',
+        valid: true,
+        name: '',
+        nameRules: [
+          v => !!v || 'Name is required',
+          v => (v && v.length <= 50) || 'Name must be less than 10 characters',
+        ],
+        chat: '',
+        chatRules: [
+          v => !!v || 'Number chat is required'
+        ]
       }
     },
-    data: () => ({
-      snackbar: false,
-      message: '',
-      valid: true,
-      name: '',
-      nameRules: [
-        v => !!v || 'Name is required',
-        v => (v && v.length <= 50) || 'Name must be less than 10 characters',
-      ],
-      chat: '',
-      chatRules: [
-        v => !!v || 'Number chat is required'
-      ]
-    }),
     methods: {
       ...mapMutations(['setUser']),
 
@@ -85,9 +88,7 @@
           };
 
           this.$socket.emit('userJoined', user, data => {
-            if (typeof data === 'string') {
-              console.log('error')
-            } else {
+            if (typeof data !== 'string') {
               user.id = data.userId;
               this.setUser(user);
               this.$router.push('/chat');
@@ -106,13 +107,12 @@
       }
 
       this.snackbar = !!this.message;
-
     }
   }
 </script>
 <style lang="scss" scoped>
   .button {
-    background-color: inherit;
     border: none;
+    background-color: inherit;
   }
 </style>
