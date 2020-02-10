@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import VueSocketIO from 'vue-socket.io'
+import VueSocketIO from 'vue-socket.io';
 
 export default function({ store }) {
   Vue.use(
@@ -10,7 +10,7 @@ export default function({ store }) {
         store,
         actionPrefix: 'SOCKET_',
         mutationPrefix: 'SOCKET_'
-      },
+      }
     })
   )
 };

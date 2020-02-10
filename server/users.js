@@ -28,4 +28,4 @@ class Users {
 
 module.exports = function() {
   return new Users()
-}
+};

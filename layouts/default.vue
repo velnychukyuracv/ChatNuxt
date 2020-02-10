@@ -21,6 +21,7 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
+
     <v-app-bar app>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title class="pl-0">
@@ -30,6 +31,7 @@
         Chat # {{user.chatNumber}}
       </v-toolbar-title>
     </v-app-bar>
+
     <v-content>
       <div style="height: 100%">
         <nuxt/>
@@ -52,11 +54,12 @@
     },
     methods: {
       ...mapMutations(['clearData']),
+
       exit() {
         this.$socket.emit('userLeft', this.user.id, () => {
           this.$router.push('/?message=leftChat');
           this.clearData();
-        });
+        })
       }
     }
   }

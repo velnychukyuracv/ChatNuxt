@@ -10,6 +10,8 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
+
   export default {
     name: 'ChatInput',
     data() {
@@ -17,11 +19,14 @@
         text: null
       }
     },
+    computed: {
+      ...mapGetters(['user'])
+    },
     methods: {
       send() {
         this.$socket.emit('createMessage', {
           text: this.text,
-          id: this.$store.state.user.id
+          id: this.user.id
         }, data => {
           if (typeof data !== 'string') {
             this.text = ''
